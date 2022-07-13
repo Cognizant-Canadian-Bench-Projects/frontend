@@ -1,0 +1,75 @@
+<div class="container">
+  <form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()">
+    <div class="row justify-content-around">
+      <div class="col-2">
+        <div>
+          <input
+            class="input-size"
+            formControlName="productName"
+            type="text"
+            placeholder="Product Name"
+          />
+        </div>
+      </div>
+      <div class="col-2">
+        <div >
+          <input
+            class="input-size"
+            formControlName="locationName"
+            type="text"
+            placeholder="Location Name"
+          />
+        </div>
+      </div>
+      <div class="col-2">
+        <p *ngIf="balanceUI">
+          Product Id: {{ balanceUI.product.id }}</p>
+      </div>
+      <div class="col-2">
+        <p *ngIf="balanceUI">
+         Department: {{ balanceUI.product.department.departmentName }}
+        </p>
+      </div>
+
+      <div class="col-2">
+        <p *ngIf="balanceUI">
+          Total : {{ balanceUI.quantity }}
+        </p>
+      </div>
+
+      <div class="col-2">
+        <button class="btn btn-primary btn-sm" type="submit">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="container">
+  <table *ngIf="balanceUI" class="table">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">Location Id</th>
+        <th scope="col">Location Name</th>
+        <th scope="col">Zipcode</th>
+        <th scope="col">Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let locationQuantity of balanceUI.locationList">
+        <th scope="row">{{ locationQuantity.location.id }}</th>
+        <td>{{ locationQuantity.location.name }}</td>
+        <td>{{ locationQuantity.location.zipcode }}</td>
+        <td>{{ locationQuantity.quantity }}</td>
+      </tr>
+      <!-- <tr>
+        <th scope="row"></th>
+        <td></td>
+        <td>Total</td>
+        <td>{{ balanceUI.quantity }}</td>
+      </tr> -->
+    </tbody>
+  </table>
+  <!-- <p *ngIf="balanceUI">{{ balanceUI.quantity }}</p> -->
+  <div role="alert" #error_message >
+
+</div>
+</div>
