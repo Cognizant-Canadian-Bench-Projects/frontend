@@ -21,7 +21,7 @@
           />
         </div>
       </div>
-      <div class="col-2">
+      <!-- <div class="col-2">
         <p *ngIf="balanceUI">
           Product Id: {{ balanceUI.product.id }}</p>
       </div>
@@ -35,7 +35,7 @@
         <p *ngIf="balanceUI">
           Total : {{ balanceUI.quantity }}
         </p>
-      </div>
+      </div> -->
 
       <div class="col-2">
         <button class="btn btn-primary btn-sm" type="submit">Submit</button>
@@ -44,21 +44,21 @@
   </form>
 </div>
 <div class="container">
-  <table *ngIf="balanceUI" class="table">
+  <table class="table">
     <thead>
       <tr class="table-primary">
-        <th scope="col">Location Id</th>
-        <th scope="col">Location Name</th>
-        <th scope="col">Zipcode</th>
+        <th scope="col">Product Id</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Department</th>
         <th scope="col">Quantity</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let locationQuantity of balanceUI.locationList">
-        <th scope="row">{{ locationQuantity.location.id }}</th>
-        <td>{{ locationQuantity.location.name }}</td>
-        <td>{{ locationQuantity.location.zipcode }}</td>
-        <td>{{ locationQuantity.quantity }}</td>
+      <tr *ngFor="let balance of balanceUI">
+        <th scope="row">{{ balance.product.id }}</th>
+        <td>{{ balance.product.name }}</td>
+        <td>{{ balance.product.department.departmentName }}</td>
+        <td>{{ balance.quantity }}</td>
       </tr>
       <!-- <tr>
         <th scope="row"></th>
