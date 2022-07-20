@@ -4,7 +4,11 @@ import { Observable } from 'rxjs';
 import { BalanceUI } from '../models/balanceUI';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
-import { allProducts, getProductByName } from './inventory.selectors';
+import {
+  allProducts,
+  getProductByName,
+  getProductByNameAndLocation,
+} from './inventory.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +43,9 @@ export class InventoryService {
 
   selectProductByName(name: string) {
     return this.store.select(getProductByName(name));
+  }
+
+  selectProductByNameAndLocation(product: string, location: string) {
+    return this.store.select(getProductByNameAndLocation(product, location));
   }
 }

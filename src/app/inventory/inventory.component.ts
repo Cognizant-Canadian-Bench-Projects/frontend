@@ -52,12 +52,13 @@ export class InventoryComponent implements OnInit {
         .selectProductByName(formVals.productName)
         .subscribe({
           next: (result) => {
-            if (result == undefined) {
+            if (result.length == 0) {
               this.error_message.nativeElement.innerHTML = `Product ${formVals.productName} is not in our inventory`;
               this.error_message.nativeElement.className = 'alert alert-danger';
             } else {
-              this.product = result;
-              console.log('Product: ', this.product);
+              this.error_message.nativeElement.innerHTML = '';
+              this.error_message.nativeElement.className = '';
+              this.balanceUI = result;
             }
           },
           error: (result) => {
@@ -65,21 +66,31 @@ export class InventoryComponent implements OnInit {
             this.error_message.nativeElement.class = 'alert alert-danger';
           },
         });
-      // } else {
-      //   // this.inventoryService
-      //   //   .getProductInventoryWithLocation(
-      //   //     this.inventoryForm.value.productName,
-      //   //     this.inventoryForm.value.locationName
-      //   //   )
-      //   //   .subscribe({
-      //   //     next: (result) => {
-      //   //       this.balanceUI = result;
-      //   //     },
-      //   //     error: (result) => {
-      //   //       this.error_message.nativeElement.innerHTML = result.error;
-      //   //       this.error_message.nativeElement.class = 'alert alert-danger';
-      //   //     },
-      //     });
+    } else {
+      this.inventoryService
+        .selectProductByNameAndLocation(
+          formVals.productName,
+          formVals.locationName
+        )
+        .pipe(
+          tap((result) => {
+            if (result.length == 0) {
+              this.error_message.nativeElement.innerHTML = `Product ${formVals.productName} is not in our inventory or Location ${formVals.locationName} is incorrect`;
+              this.error_message.nativeElement.className = 'alert alert-danger';
+            } else {
+              this.error_message.nativeElement.innerHTML = '';
+              this.error_message.nativeElement.className = '';
+              this.balanceUI = result;
+            }
+          })
+        )
+        .subscribe({
+          next: noop,
+          error: (result) => {
+            this.error_message.nativeElement.innerHTML = result.error;
+            this.error_message.nativeElement.class = 'alert alert-danger';
+          },
+        });
     }
   }
 
