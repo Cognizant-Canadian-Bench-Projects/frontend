@@ -1,4 +1,4 @@
-import { Product } from "./inventory";
+import { Product } from "./product";
 import { LocationQuantity } from "./locationQuantity";
 
 export interface BalanceUI{

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BalanceUI } from '../models/balanceUI';
-import { Product } from '../models/inventory';
+import { Product } from '../models/product';
 import { LocationQuantity } from '../models/locationQuantity';
 
 @Component({
@@ -16,7 +16,7 @@ export class ProductModalComponent implements OnInit {
   quantity = 0;
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: BalanceUI) { 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: BalanceUI) {
     this.product = data.product;
     this.locationList = data.locationList;
     this.quantity = data.quantity;

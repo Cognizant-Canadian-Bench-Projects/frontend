@@ -18,20 +18,20 @@ export class InventoryService {
 
   constructor(private http: HttpClient, private store: Store<AppState>) {}
 
-  getProductInventory(name: string): Observable<BalanceUI> {
-    const params = new HttpParams().set('productName', name);
-    return this.http.get<BalanceUI>(`${this.url}/balance`, { params: params });
-  }
+  // getProductInventory(name: string): Observable<BalanceUI> {
+  //   const params = new HttpParams().set('productName', name);
+  //   return this.http.get<BalanceUI>(`${this.url}/balance`, { params: params });
+  // }
 
-  getProductInventoryWithLocation(
-    name: string,
-    locationName: string
-  ): Observable<BalanceUI> {
-    const params = new HttpParams()
-      .set('productName', name)
-      .set('locationName', locationName);
-    return this.http.get<BalanceUI>(`${this.url}/balance`, { params: params });
-  }
+  // getProductInventoryWithLocation(
+  //   name: string,
+  //   locationName: string
+  // ): Observable<BalanceUI> {
+  //   const params = new HttpParams()
+  //     .set('productName', name)
+  //     .set('locationName', locationName);
+  //   return this.http.get<BalanceUI>(`${this.url}/balance`, { params: params });
+  // }
 
   getInventory(): Observable<BalanceUI[]> {
     return this.http.get<BalanceUI[]>(`${this.url}/inventory`);

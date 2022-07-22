@@ -95,7 +95,7 @@ export class InventoryComponent implements OnInit {
   }
 
   openProductModal(balance: BalanceUI) {
-    console.log(balance);
+    // console.log(balance);
     this.dialog.open(ProductModalComponent, {
       data: balance,
     });
