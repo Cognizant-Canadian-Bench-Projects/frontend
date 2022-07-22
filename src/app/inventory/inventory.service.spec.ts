@@ -89,7 +89,7 @@ describe('InventoryService', () => {
     request.flush([balanceUI]);
   })
 
-  fit('should select Inventory from Backend for all products',()=>{
+  it('should select Inventory from Backend for all products',()=>{
 
     service.selectInventory().subscribe(inventory => {
       expect(inventory).toEqual([balanceUI,balanceUI2]);
@@ -100,6 +100,11 @@ describe('InventoryService', () => {
     service.selectProductByName('lower').subscribe(inventory => {
       expect(inventory).toEqual([balanceUI2]);
     })
+  })
 
+  fit('should select Inventory from Backend for single product and single location',()=>{
+    service.selectProductByNameAndLocation('lower','vaughn').subscribe(inventory => {
+      expect(inventory).toEqual([balanceUI2]);
+    })
   })
 });
