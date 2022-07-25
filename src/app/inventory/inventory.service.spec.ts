@@ -1,5 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+  TestRequest,
+} from '@angular/common/http/testing';
 import { InventoryService } from './inventory.service';
 import { MemoizedSelector, Store, StoreModule } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
@@ -56,55 +60,56 @@ let balanceUI2: BalanceUI = {
 describe('InventoryService', () => {
   let store: MockStore<AppState>;
   let mockSelector: MemoizedSelector<InventoryState, BalanceUI[]>;
-  let mockSelectorByProductName: MemoizedSelector<InventoryState, BalanceUI[]>
-  const initialState = { inventoryState:[] };
+  let mockSelectorByProductName: MemoizedSelector<InventoryState, BalanceUI[]>;
+  const initialState = { inventoryState: [] };
   let service: InventoryService;
-  let httpTestingController:HttpTestingController;
+  let httpTestingController: HttpTestingController;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports :[HttpClientTestingModule,StoreModule],
-      providers :[HttpClientTestingModule,
-      provideMockStore({initialState}),
-    ]
+      imports: [HttpClientTestingModule, StoreModule],
+      providers: [HttpClientTestingModule, provideMockStore({ initialState })],
     });
     service = TestBed.inject(InventoryService);
     httpTestingController = TestBed.inject(HttpTestingController);
     store = TestBed.inject(MockStore);
-    mockSelector = store.overrideSelector(allProducts,[balanceUI,balanceUI2]);
+    mockSelector = store.overrideSelector(allProducts, [balanceUI, balanceUI2]);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get Inventory from Backend',()=>{
+  it('should get Inventory from Backend', () => {
     let request: TestRequest;
 
     service.getInventory().subscribe((result) => {
       expect(result).toBeTruthy();
       expect(result).toEqual([balanceUI]);
-    })
-    request = httpTestingController.expectOne('http://localhost:8080/inventory');
-    expect(request.request.method).toEqual("GET");
+    });
+    request = httpTestingController.expectOne(
+      'http://localhost:8080/inventory'
+    );
+    expect(request.request.method).toEqual('GET');
     request.flush([balanceUI]);
-  })
+  });
 
-  it('should select Inventory from Backend for all products',()=>{
+  it('should select Inventory from Backend for all products', () => {
+    service.selectInventory().subscribe((inventory) => {
+      expect(inventory).toEqual([balanceUI, balanceUI2]);
+    });
+  });
 
-    service.selectInventory().subscribe(inventory => {
-      expect(inventory).toEqual([balanceUI,balanceUI2]);
-    })
-  })
-
-  it('should select Inventory from Backend for single product',()=>{
-    service.selectProductByName('lower').subscribe(inventory => {
+  it('should select Inventory from Backend for single product', () => {
+    service.selectProductByName('lower').subscribe((inventory) => {
       expect(inventory).toEqual([balanceUI2]);
-    })
-  })
+    });
+  });
 
-  fit('should select Inventory from Backend for single product and single location',()=>{
-    service.selectProductByNameAndLocation('lower','vaughn').subscribe(inventory => {
-      expect(inventory).toEqual([balanceUI2]);
-    })
-  })
+  it('should select Inventory from Backend for single product and single location', () => {
+    service
+      .selectProductByNameAndLocation('lower', 'vaughn')
+      .subscribe((inventory) => {
+        expect(inventory).toEqual([balanceUI2]);
+      });
+  });
 });
