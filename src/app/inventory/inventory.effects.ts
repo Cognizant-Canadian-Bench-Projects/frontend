@@ -6,12 +6,5 @@ import { InventoryActions } from "./action-types";
 export class InventoryEffect {
 
     constructor(private actions$: Actions){}
-    
-    // getInventory$ = createEffect(() => 
-    //     this.actions$
-    //     .pipe(
-    //         ofType(InventoryActions.getInventory),
-    //         tap(action => )
-    //     )
-    // );
+
 }
