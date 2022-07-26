@@ -117,14 +117,14 @@ describe('AppComponent', () => {
     expect(store.dispatch).toHaveBeenCalled();
   });
 
-  it('should load error if  no database connection', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    spyOn(inventoryService, 'getInventory').and.returnValue(throwError(() => new Error('test')));
-    spyOn(store, 'dispatch').and.callThrough();
-    app.ngOnInit();
-    expect(app.error).toEqual("couldnt load inventory");
-  });
+  // it('should load error if  no database connection', () => {
+  //   const fixture = TestBed.createComponent(AppComponent);
+  //   const app = fixture.componentInstance;
+  //   spyOn(inventoryService, 'getInventory').and.returnValue(throwError(() => new Error('test')));
+  //   spyOn(store, 'dispatch').and.callThrough();
+  //   app.ngOnInit();
+  //   expect(app.error).toEqual("couldnt load inventory");
+  // });
 
   it(`should have as title 'inventory system'`, () => {
     const fixture = TestBed.createComponent(AppComponent);

@@ -25,6 +25,7 @@ export class InventoryComponent implements OnInit {
   inventoryForm!: UntypedFormGroup;
   balanceUI!: BalanceUI[];
   product: BalanceUI | undefined;
+  errorMessage! :Observable<string| null>
 
   display = 'none';
   @ViewChild('error_message') error_message!: ElementRef;
@@ -43,6 +44,7 @@ export class InventoryComponent implements OnInit {
       productName: ['', Validators.required],
       locationName: [''],
     });
+    // this.errorMessage = this.inventoryService.getErrorMessage()
   }
 
   onSubmit() {

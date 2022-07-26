@@ -16,10 +16,14 @@ export const getProductByName = (name: string) =>
 
 export const getProductByNameAndLocation = (name: string, location: string) =>
   createSelector(getProductByName(name), (products) =>
-    products.filter(
-      (product) =>
-        product.locationList.find(
-          (locationQuantity) => location == locationQuantity.location.name
-        )
+    products.filter((product) =>
+      product.locationList.find(
+        (locationQuantity) => location == locationQuantity.location.name
+      )
     )
   );
+
+export const selectErrorMessage = createSelector(
+  selectInventoryState,
+  (inventoryState) => inventoryState.errorMessage
+);

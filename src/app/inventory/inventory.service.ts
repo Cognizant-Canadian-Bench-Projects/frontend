@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { BalanceUI } from '../models/balanceUI';
 import { AppState } from '../app.state';
 import { Store } from '@ngrx/store';
@@ -8,6 +8,7 @@ import {
   allProducts,
   getProductByName,
   getProductByNameAndLocation,
+  selectErrorMessage,
 } from './inventory.selectors';
 
 @Injectable({
@@ -47,5 +48,9 @@ export class InventoryService {
 
   selectProductByNameAndLocation(product: string, location: string) {
     return this.store.select(getProductByNameAndLocation(product, location));
+  }
+
+  getErrorMessage(): Observable<string | null> {
+    return this.store.select(selectErrorMessage);
   }
 }
