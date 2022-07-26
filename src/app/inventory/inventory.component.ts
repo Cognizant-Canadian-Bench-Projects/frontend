@@ -72,23 +72,23 @@ export class InventoryComponent implements OnInit {
           formVals.productName,
           formVals.locationName
         )
-        .pipe(
-          tap((result) => {
+        .subscribe({
+          next: ((result) => {
             if (result.length == 0) {
               this.error_message.nativeElement.innerHTML = `Product ${formVals.productName} is not in our inventory or Location ${formVals.locationName} is incorrect`;
               this.error_message.nativeElement.className = 'alert alert-danger';
+            console.log("1");
             } else {
               this.error_message.nativeElement.innerHTML = '';
               this.error_message.nativeElement.className = '';
               this.balanceUI = result;
+              console.log("2");
             }
-          })
-        )
-        .subscribe({
-          next: noop,
+          }),
           error: (result) => {
             this.error_message.nativeElement.innerHTML = result.error;
             this.error_message.nativeElement.class = 'alert alert-danger';
+            console.log("3");
           },
         });
     }

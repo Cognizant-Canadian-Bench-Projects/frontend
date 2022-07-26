@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { BalanceUI } from '../models/balanceUI';
 import { Department } from '../models/department';
 import { Location } from '../models/location';
@@ -145,5 +145,14 @@ describe('InventoryComponent', () => {
       productName:'',locationName:''
     })
   })
+
+  // fit('onSubmit should return error message if no product name or location name', () => {
+  //   component.inventoryForm.value.productName = 'shirts';
+  //   component.inventoryForm.value.locationName = 'vaughn';
+  //   spyOn(inventoryService, 'selectProductByNameAndLocation').and.returnValue(throwError(() => new Error('test')));
+  //   component.onSubmit();
+  // expect(component.error_message.nativeElement.innerHTML)
+  // .toEqual('test');
+  // });
 
 });
