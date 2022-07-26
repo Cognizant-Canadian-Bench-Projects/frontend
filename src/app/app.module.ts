@@ -16,6 +16,8 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { reducers } from './app.state';
 import { ProductModalComponent } from './product-modal/product-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InventoryEffect } from './inventory/inventory.effects';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     StoreModule.forRoot(reducers, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([InventoryEffect]),
     StoreRouterConnectingModule.forRoot(),
     MatDialogModule,
     BrowserAnimationsModule

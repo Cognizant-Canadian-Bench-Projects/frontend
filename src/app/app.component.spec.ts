@@ -18,6 +18,11 @@ class MockInventoryServices {
   getProductInventory() {
     return of();
   }
+
+  getErrorMessage(){
+    return of();
+  }
+
   getProductInventoryWithLocation() {
     return of();
   }
@@ -117,14 +122,12 @@ describe('AppComponent', () => {
     expect(store.dispatch).toHaveBeenCalled();
   });
 
-  // it('should load error if  no database connection', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   const app = fixture.componentInstance;
-  //   spyOn(inventoryService, 'getInventory').and.returnValue(throwError(() => new Error('test')));
-  //   spyOn(store, 'dispatch').and.callThrough();
-  //   app.ngOnInit();
-  //   expect(app.error).toEqual("couldnt load inventory");
-  // });
+  it('should load error if  no database connection', () => {
+    spyOn(inventoryService, 'getErrorMessage').and.returnValue(of('test'));
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.error).toEqual('test');
+  });
 
   it(`should have as title 'inventory system'`, () => {
     const fixture = TestBed.createComponent(AppComponent);

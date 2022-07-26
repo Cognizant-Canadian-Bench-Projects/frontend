@@ -3,7 +3,6 @@ import { BalanceUI } from "../models/balanceUI";
 
 export const getInventory = createAction(
     "[App Component] Loading Inventory",
-    // props<{inventory: BalanceUI[]}>()
 );
 
 export const loadedInventory = createAction(
@@ -12,6 +11,6 @@ export const loadedInventory = createAction(
 );
 
 export const errorLoadingInventory = createAction(
-  "[Load Inventory Effects] Inventory not loaded",
+  "[Load Inventory Effects] Inventory Not Loaded",
   props<{error:string}>()
 );

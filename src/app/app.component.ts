@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     private inventoryService: InventoryService,
   ) {
     this.inventoryService.getErrorMessage().subscribe({
-      next: (err) => (this.error = err),
+      next: err=> this.error =err
     });
   }
 

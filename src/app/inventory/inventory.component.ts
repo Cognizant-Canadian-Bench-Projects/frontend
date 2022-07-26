@@ -44,7 +44,6 @@ export class InventoryComponent implements OnInit {
       productName: ['', Validators.required],
       locationName: [''],
     });
-    // this.errorMessage = this.inventoryService.getErrorMessage()
   }
 
   onSubmit() {
