@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './app.state';
 import { InventoryService } from './inventory/inventory.service';
@@ -11,22 +11,23 @@ import { getInventory } from './inventory/inventory.actions';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'frontend';
+export class AppComponent implements OnInit{
+  title = 'inventory system';
+  error = ''
 
   constructor(private store: Store<AppState>,
     private inventoryService: InventoryService){}
 
   ngOnInit(){
-    
+
     this.inventoryService.getInventory()
-    .pipe(
-      tap(inventory => {
-        this.store.dispatch(getInventory({inventory}));
-      })
-    ).subscribe(
-      noop,
-      (err)=> console.log(err.error)
+    .subscribe(
+      {
+        next:inventory => {
+          this.store.dispatch(getInventory({inventory}));
+        },
+        error:(err)=> {this.error ="couldnt load inventory"}
+      }
     )
 
   }

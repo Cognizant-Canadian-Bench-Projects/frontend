@@ -60,7 +60,6 @@ let balanceUI2: BalanceUI = {
 describe('InventoryService', () => {
   let store: MockStore<AppState>;
   let mockSelector: MemoizedSelector<InventoryState, BalanceUI[]>;
-  let mockSelectorByProductName: MemoizedSelector<InventoryState, BalanceUI[]>;
   const initialState = { inventoryState: [] };
   let service: InventoryService;
   let httpTestingController: HttpTestingController;
