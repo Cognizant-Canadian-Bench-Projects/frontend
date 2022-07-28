@@ -15,6 +15,8 @@ import { AppState } from '../app.state';
 import { LocationQuantity } from '../models/locationQuantity';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
+import { InventioryDataService } from './inventiory-data.service';
+import { getProductByName } from './inventory.selectors';
 declare var window: any;
 @Component({
   selector: 'app-inventory',
@@ -29,15 +31,22 @@ export class InventoryComponent implements OnInit {
   display = 'none';
   @ViewChild('error_message') error_message!: ElementRef;
   constructor(
+    private inventoryDataService: InventioryDataService,
     private formBuilder: UntypedFormBuilder,
     private inventoryService: InventoryService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.inventoryService
-      .selectInventory()
-      .subscribe((inventory) => (this.balanceUI = inventory));
+    this.inventoryDataService.entities$.subscribe({
+      next:entities=>{
+        this.balanceUI=entities;
+      }
+    })
+    // this.inventoryService
+    //   .selectInventory()
+    //   .subscribe((inventory) => (this.balanceUI = inventory));
+
 
     this.inventoryForm = this.formBuilder.group({
       productName: ['', Validators.required],
@@ -48,24 +57,31 @@ export class InventoryComponent implements OnInit {
   onSubmit() {
     const formVals = this.inventoryForm.value;
     if (formVals.locationName == '') {
-      this.inventoryService
-        .selectProductByName(formVals.productName)
-        .subscribe({
-          next: (result) => {
-            if (result.length == 0) {
-              this.error_message.nativeElement.innerHTML = `Product ${formVals.productName} is not in our inventory`;
-              this.error_message.nativeElement.className = 'alert alert-danger';
-            } else {
-              this.error_message.nativeElement.innerHTML = '';
-              this.error_message.nativeElement.className = '';
-              this.balanceUI = result;
-            }
-          },
-          error: (result) => {
-            this.error_message.nativeElement.innerHTML = result.error;
-            this.error_message.nativeElement.class = 'alert alert-danger';
-          },
-        });
+      this.inventoryDataService.entities$.subscribe({
+        next:(result)=>{
+          this.balanceUI = result.filter(balanceUI=>{
+          balanceUI.product.name == formVals.productName;
+
+        })
+        }
+      })
+        // .selectProductByName(formVals.productName)
+        // .subscribe({
+        //   next: (result) => {
+        //     if (result.length == 0) {
+        //       this.error_message.nativeElement.innerHTML = `Product ${formVals.productName} is not in our inventory`;
+        //       this.error_message.nativeElement.className = 'alert alert-danger';
+        //     } else {
+        //       this.error_message.nativeElement.innerHTML = '';
+        //       this.error_message.nativeElement.className = '';
+        //       this.balanceUI = result;
+        //     }
+        //   },
+        //   error: (result) => {
+        //     this.error_message.nativeElement.innerHTML = result.error;
+        //     this.error_message.nativeElement.class = 'alert alert-danger';
+        //   },
+        // });
     } else {
       this.inventoryService
         .selectProductByNameAndLocation(

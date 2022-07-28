@@ -5,6 +5,7 @@ import { InventoryService } from './inventory/inventory.service';
 import { tap } from 'rxjs/operators';
 import { noop, Observable } from 'rxjs';
 import { getInventory } from './inventory/inventory.actions';
+import { InventioryDataService } from './inventory/inventiory-data.service';
 
 @Component({
   selector: 'app-root',
@@ -16,15 +17,17 @@ export class AppComponent implements OnInit {
   error!: string | null;
 
   constructor(
-    private store: Store<AppState>,
-    private inventoryService: InventoryService,
+    private inventoryDataService: InventioryDataService
+    // private store: Store<AppState>,
+    // private inventoryService: InventoryService,
   ) {
-    this.inventoryService.getErrorMessage().subscribe({
-      next: err=> this.error =err
-    });
+    // this.inventoryService.getErrorMessage().subscribe({
+    //   next: err=> this.error =err
+    // });
   }
 
   ngOnInit() {
-    this.store.dispatch(getInventory());
+    this.inventoryDataService.getAll();
+    // this.store.dispatch(getInventory());
   }
 }

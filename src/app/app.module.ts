@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Store, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { MatDialogModule } from '@angular/material/dialog'
+import { MatDialogModule } from '@angular/material/dialog';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -20,6 +20,18 @@ import { InventoryEffect } from './inventory/inventory.effects';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import {
+  DefaultDataService,
+  DefaultDataServiceConfig,
+  EntityDataModule,
+} from '@ngrx/data';
+import { entityConfig } from './entity-metadata';
+import { timeout } from 'rxjs';
+
+const defaultDataServiceConfig: DefaultDataServiceConfig = {
+  root: 'http://localhost:8080',
+  timeout: 3000,
+};
 
 @NgModule({
   declarations: [
@@ -28,7 +40,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     ProductModalComponent,
     LoginComponent,
     SignupComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,13 +50,20 @@ import { NavbarComponent } from './navbar/navbar.component';
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
     EffectsModule.forRoot([InventoryEffect]),
     StoreRouterConnectingModule.forRoot(),
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    EntityDataModule.forRoot(entityConfig),
   ],
-  providers: [Store],
-  bootstrap: [AppComponent]
+  providers: [
+    Store,
+    { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
