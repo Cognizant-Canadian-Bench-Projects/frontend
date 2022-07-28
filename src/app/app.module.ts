@@ -17,12 +17,18 @@ import { reducers } from './app.state';
 import { ProductModalComponent } from './product-modal/product-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InventoryEffect } from './inventory/inventory.effects';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InventoryComponent,
-    ProductModalComponent
+    ProductModalComponent,
+    LoginComponent,
+    SignupComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

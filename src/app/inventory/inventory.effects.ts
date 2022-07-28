@@ -12,6 +12,7 @@ export class InventoryEffect {
   ) {}
 
   getInventory$ = createEffect(() =>
+  //pipe is use to filter actions to get getInventory
     this.actions$.pipe(
       ofType(InventoryActions.getInventory),
       concatMap(() =>
