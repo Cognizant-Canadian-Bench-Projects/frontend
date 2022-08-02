@@ -26,7 +26,9 @@ export class ProductModalComponent implements OnInit {
     this.quantity = data.quantity;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.filterLocations();
+  }
 
   filterLocations() {
     this.filteredLocations = this.locationPipe.transform(

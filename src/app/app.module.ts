@@ -29,6 +29,7 @@ import { entityConfig } from './entity-metadata';
 import { timeout } from 'rxjs';
 import { ProductNamePipe } from './pipes/product-name.pipe';
 import { LocationNamePipe } from './pipes/location-name.pipe';
+import { InventoryResolver } from './inventory/inventory.resolver';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: 'http://localhost:8080',
@@ -67,7 +68,9 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
   providers: [
     Store,
     { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
-    LocationNamePipe
+    LocationNamePipe,
+    ProductNamePipe,
+    InventoryResolver
   ],
   bootstrap: [AppComponent],
 })

@@ -8,24 +8,15 @@
           type="text"
           placeholder="Product Name"
           [(ngModel)]="productName"
+          (ngModelChange)="filterProducts()"
         />
       </div>
     </div>
-    <!-- <div class="col-2"> -->
-      <!-- <div>
-        <input
-          class="input-size"
-          type="text"
-          placeholder="Location Name"
-          [(ngModel)]="locationName"
-        />
-      </div> -->
-    <!-- </div> -->
-
     <div class="col-2"></div>
   </div>
 </div>
-<div class="container">
+<ng-container *ngIf="filteredProducts.length>0
+  else noProducts" class="container">
   <table class="table table-hover table-striped table-borderless">
     <thead>
       <tr class="table-primary">
@@ -51,4 +42,7 @@
   </table>
 
   <div role="alert" #error_message></div>
-</div>
+</ng-container>
+<ng-template #noProducts>
+  <tr style="color:black">No product found</tr>
+</ng-template>

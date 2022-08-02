@@ -9,7 +9,7 @@ import { BalanceUI } from '../models/balanceUI';
 import { getInventory } from './inventory.actions';
 import { InventoryService } from './inventory.service';
 import { InventoryState } from './reducers';
-import { tap } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
 import { noop, Observable } from 'rxjs';
 import { AppState } from '../app.state';
 import { LocationQuantity } from '../models/locationQuantity';
@@ -21,6 +21,7 @@ import {
   selectProductByName,
   selectProductByNameAndLocation,
 } from './inventory.selectors';
+import { ProductNamePipe } from '../pipes/product-name.pipe';
 declare var window: any;
 @Component({
   selector: 'app-inventory',
@@ -29,10 +30,11 @@ declare var window: any;
 })
 export class InventoryComponent implements OnInit {
   //inventoryForm!: UntypedFormGroup;
-  balanceUI!: BalanceUI[];
+  balanceUI: BalanceUI[] = [];
   product: BalanceUI | undefined;
   productName: string = '';
-  // locationName: string = '';
+  filteredProducts: BalanceUI[] = [];
+
 
   display = 'none';
   @ViewChild('error_message') error_message!: ElementRef;
@@ -40,23 +42,18 @@ export class InventoryComponent implements OnInit {
     private inventoryDataService: InventioryDataService,
     //private formBuilder: UntypedFormBuilder,
     private inventoryService: InventoryService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private productPipe: ProductNamePipe
   ) {}
 
   ngOnInit(): void {
-    this.inventoryDataService.entities$.subscribe({
-      next: (entities) => {
-        this.balanceUI = entities;
-      },
-    });
-    // this.inventoryService
-    //   .selectInventory()
-    //   .subscribe((inventory) => (this.balanceUI = inventory));
+    this.inventoryDataService.entities$.subscribe(
+      {next: inventory=>{
+        this.balanceUI=inventory;
+      }}
+    )
+    this.filterProducts();
 
-    // this.inventoryForm = this.formBuilder.group({
-    //   productName: ['', Validators.required],
-    //   locationName: [''],
-    // });
   }
 
   openProductModal(balance: BalanceUI) {
@@ -64,5 +61,12 @@ export class InventoryComponent implements OnInit {
     this.dialog.open(ProductModalComponent, {
       data: balance,
     });
+  }
+
+  filterProducts() {
+    this.filteredProducts = this.productPipe.transform(
+      this.balanceUI,
+      this.productName
+    );
   }
 }

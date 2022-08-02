@@ -1,7 +1,7 @@
 <div id="product-modal">
   <h2 id="product-name" *ngIf="product">{{ product.name }}</h2>
-  <div>
-  <ng-container *ngIf="filteredLocations.length>0 else noLocations">
+  <ng-container *ngIf="filteredLocations.length>0
+    else noLocations">
     <table class="table table-hover table-striped table-borderless">
       <thead>
         <input
@@ -21,15 +21,17 @@
       <tbody  >
         <tr *ngFor="let locationQuantity of locationList | locationName:locationName" >
           <th  scope="row">{{ locationQuantity.location.id }}</th>
-          <td >{{ locationQuantity.location.name }}</td>
-          <td >{{ locationQuantity.location.zipcode }}</td>
-          <td >{{ locationQuantity.quantity }}</td>
+          <td>{{ locationQuantity.location.name }}</td>
+          <td>{{ locationQuantity.location.zipcode }}</td>
+          <td>{{ locationQuantity.quantity }}</td>
         </tr>
       </tbody>
     </table>
   </ng-container>
-</div>
   <ng-template #noLocations>
-    <p>No location found</p>
+    <tr style="color:black">No location found</tr>
   </ng-template>
+  <!-- <div *ngIf="filteredLocations.length==0">
+    <p>LOCATION DOES NOT EXIST</p>
+  </div> -->
 </div>
