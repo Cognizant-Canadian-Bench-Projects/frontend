@@ -32,7 +32,7 @@ export class InventoryComponent implements OnInit {
   balanceUI!: BalanceUI[];
   product: BalanceUI | undefined;
   productName: string = '';
-  locationName: string = '';
+  // locationName: string = '';
 
   display = 'none';
   @ViewChild('error_message') error_message!: ElementRef;

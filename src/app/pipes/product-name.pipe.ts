@@ -9,23 +9,15 @@ export class ProductNamePipe implements PipeTransform {
   transform(
     value: BalanceUI[],
     productName: string,
-    locationName: string
+    // locationName: string
   ): BalanceUI[] {
     if (productName == '') {
       return value;
-    } else if (locationName == '') {
-      return value.filter((balanceUI) =>
-        balanceUI.product.name.toLowerCase().match(productName.toLowerCase())
-      );
     }
     return value
       .filter((balanceUI) =>
         balanceUI.product.name.toLowerCase().match(productName.toLowerCase())
       )
-      .filter((product) => {
-        product.locationList.find((location) =>
-          locationName.toLowerCase().match(location.location.name.toLowerCase())
-        );
-      });
+
   }
 }

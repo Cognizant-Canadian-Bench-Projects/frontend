@@ -11,16 +11,16 @@
         />
       </div>
     </div>
-    <div class="col-2">
-      <div>
+    <!-- <div class="col-2"> -->
+      <!-- <div>
         <input
           class="input-size"
           type="text"
           placeholder="Location Name"
           [(ngModel)]="locationName"
         />
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
 
     <div class="col-2"></div>
   </div>
@@ -38,7 +38,7 @@
     <tbody>
       <tr
         *ngFor="
-          let balance of balanceUI | productName: productName:locationName
+          let balance of balanceUI | productName: productName
         "
         (click)="openProductModal(balance)"
       >
@@ -49,5 +49,6 @@
       </tr>
     </tbody>
   </table>
+
   <div role="alert" #error_message></div>
 </div>

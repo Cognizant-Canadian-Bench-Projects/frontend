@@ -28,6 +28,7 @@ import {
 import { entityConfig } from './entity-metadata';
 import { timeout } from 'rxjs';
 import { ProductNamePipe } from './pipes/product-name.pipe';
+import { LocationNamePipe } from './pipes/location-name.pipe';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: 'http://localhost:8080',
@@ -43,6 +44,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     SignupComponent,
     NavbarComponent,
     ProductNamePipe,
+    LocationNamePipe,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +67,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
   providers: [
     Store,
     { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
+    LocationNamePipe
   ],
   bootstrap: [AppComponent],
 })
