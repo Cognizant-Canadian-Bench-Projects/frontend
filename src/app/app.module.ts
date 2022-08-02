@@ -27,10 +27,11 @@ import {
 } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
 import { timeout } from 'rxjs';
+import { ProductNamePipe } from './pipes/product-name.pipe';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: 'http://localhost:8080',
-  timeout: 3000,
+  // timeout: 3000,
 };
 
 @NgModule({
@@ -41,6 +42,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     LoginComponent,
     SignupComponent,
     NavbarComponent,
+    ProductNamePipe,
   ],
   imports: [
     BrowserModule,
