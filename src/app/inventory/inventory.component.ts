@@ -46,6 +46,7 @@ export class InventoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.inventoryDataService.loaded$);
     this.inventoryDataService.entities$.subscribe({
       next: (inventory) => {
         this.balanceUI = inventory;
@@ -53,6 +54,7 @@ export class InventoryComponent implements OnInit {
       },
     });
     this.filterProducts();
+    this.inventoryDataService.loaded$;
   }
 
   openProductModal(balance: BalanceUI) {

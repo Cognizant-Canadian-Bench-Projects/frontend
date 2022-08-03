@@ -12,6 +12,7 @@ import {
   EntityDefinitionService,
   EntityMetadataMap,
 } from '@ngrx/data';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 const inventoryRoutes: Routes = [
   {
     path: '',
@@ -23,7 +24,7 @@ const entityMetadata: EntityMetadataMap = {
   BalanceUI: { entityName: 'Inventory' },
 };
 @NgModule({
-  declarations: [InventoryComponent, ProductNamePipe],
+  declarations: [InventoryComponent, ProductNamePipe, LoadingSpinnerComponent],
   imports: [CommonModule, FormsModule, RouterModule.forChild(inventoryRoutes)],
   exports: [InventoryComponent],
   providers: [ProductNamePipe, InventioryDataService, InventoryResolver],
