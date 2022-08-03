@@ -30,6 +30,11 @@ import { timeout } from 'rxjs';
 import { ProductNamePipe } from './pipes/product-name.pipe';
 import { LocationNamePipe } from './pipes/location-name.pipe';
 import { InventoryResolver } from './inventory/inventory.resolver';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: 'http://localhost:8080',
@@ -49,6 +54,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
@@ -62,6 +68,11 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     EffectsModule.forRoot([InventoryEffect]),
     StoreRouterConnectingModule.forRoot(),
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
     BrowserAnimationsModule,
     EntityDataModule.forRoot(entityConfig),
   ],
@@ -70,7 +81,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
     LocationNamePipe,
     ProductNamePipe,
-    InventoryResolver
+    InventoryResolver,
   ],
   bootstrap: [AppComponent],
 })

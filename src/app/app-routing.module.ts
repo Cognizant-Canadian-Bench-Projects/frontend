@@ -6,13 +6,20 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { InventoryResolver } from './inventory/inventory.resolver';
 
 const routes: Routes = [
-  {path: 'inventory', component:InventoryComponent,resolve:{Inventory:InventoryResolver}},
-  {path: '', component:LoginComponent},
-  {path: 'register', component:SignupComponent}
+  {
+    path: 'inventory',
+    component: InventoryComponent,
+    resolve: { Inventory: InventoryResolver },
+  },
+  {
+    path: '',
+    component: LoginComponent,
+  },
+  { path: 'register', component: SignupComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

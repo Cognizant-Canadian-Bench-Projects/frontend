@@ -22,6 +22,10 @@ import {
   selectProductByNameAndLocation,
 } from './inventory.selectors';
 import { ProductNamePipe } from '../pipes/product-name.pipe';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { data } from '../models/balance';
 declare var window: any;
 @Component({
   selector: 'app-inventory',
@@ -29,44 +33,61 @@ declare var window: any;
   styleUrls: ['./inventory.component.css'],
 })
 export class InventoryComponent implements OnInit {
-  //inventoryForm!: UntypedFormGroup;
-  balanceUI: BalanceUI[] = [];
   product: BalanceUI | undefined;
   productName: string = '';
   filteredProducts: BalanceUI[] = [];
-
+  dataSource!: any;
+  tableData: data[] = [];
 
   display = 'none';
   @ViewChild('error_message') error_message!: ElementRef;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private inventoryDataService: InventioryDataService,
-    //private formBuilder: UntypedFormBuilder,
     private inventoryService: InventoryService,
-    private dialog: MatDialog,
-    private productPipe: ProductNamePipe
+    private dialog: MatDialog // private productPipe: ProductNamePipe
   ) {}
+  displayedColumns: string[] = [
+    'id',
+    'productName',
+    'departmentName',
+    'quantity',
+  ];
 
   ngOnInit(): void {
-    this.inventoryDataService.entities$.subscribe(
-      {next: inventory=>{
-        this.balanceUI=inventory;
-      }}
-    )
-    this.filterProducts();
-
+    this.inventoryDataService.entities$.subscribe({
+      next: (inventory) => {
+        setTimeout(() => {
+          for (let invent of inventory) {
+            console.log(invent);
+            let table!: data;
+            console.log(invent.product.id);
+            table = {
+              id: invent.product.id,
+              productName: invent.product.name,
+              departmentName: invent.product.department.name,
+              quantity: invent.quantity,
+            };
+            this.tableData.push(table);
+          }
+          console.log(this.tableData);
+          this.dataSource = new MatTableDataSource(this.tableData);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }, 0);
+      },
+    });
   }
 
   openProductModal(balance: BalanceUI) {
-    // console.log(balance);
     this.dialog.open(ProductModalComponent, {
       data: balance,
     });
   }
-
-  filterProducts() {
-    this.filteredProducts = this.productPipe.transform(
-      this.balanceUI,
-      this.productName
-    );
+  Filterchange(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue);
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

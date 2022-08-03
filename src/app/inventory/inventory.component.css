@@ -1,4 +1,4 @@
-.input-size{
+/* .input-size{
   width:130px;
 }
 
@@ -10,4 +10,22 @@
 
 .modal{
   background-color: rgb(255, 0, 0);opacity:0.2;
+} */
+
+table {
+  width: 80%;
+  margin-left: 170px;
+  margin-top: 80px;
+
+}
+
+
+.mat-paginator{
+  width: 80%;
+  margin-left: 170px;
+
+}
+.mat-form-field{
+  margin-left: 170px;
+  margin-top: 50px;
 }
