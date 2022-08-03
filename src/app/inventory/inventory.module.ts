@@ -13,6 +13,7 @@ import {
   EntityMetadataMap,
 } from '@ngrx/data';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+import { compareBalanceUI } from '../models/balanceUI';
 const inventoryRoutes: Routes = [
   {
     path: '',
@@ -21,10 +22,10 @@ const inventoryRoutes: Routes = [
   },
 ];
 const entityMetadata: EntityMetadataMap = {
-  BalanceUI: { entityName: 'Inventory' },
+  BalanceUI: { entityName: 'Inventory', sortComparer: compareBalanceUI },
 };
 @NgModule({
-  declarations: [InventoryComponent, ProductNamePipe, LoadingSpinnerComponent],
+  declarations: [InventoryComponent, ProductNamePipe],
   imports: [CommonModule, FormsModule, RouterModule.forChild(inventoryRoutes)],
   exports: [InventoryComponent],
   providers: [ProductNamePipe, InventioryDataService, InventoryResolver],

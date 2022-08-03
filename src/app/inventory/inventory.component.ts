@@ -29,7 +29,6 @@ declare var window: any;
   styleUrls: ['./inventory.component.css'],
 })
 export class InventoryComponent implements OnInit {
-  //inventoryForm!: UntypedFormGroup;
   balanceUI: BalanceUI[] = [];
   product: BalanceUI | undefined;
   productName: string = '';
@@ -39,8 +38,6 @@ export class InventoryComponent implements OnInit {
   @ViewChild('error_message') error_message!: ElementRef;
   constructor(
     private inventoryDataService: InventioryDataService,
-    //private formBuilder: UntypedFormBuilder,
-    private inventoryService: InventoryService,
     private dialog: MatDialog,
     private productPipe: ProductNamePipe
   ) {}
@@ -50,15 +47,12 @@ export class InventoryComponent implements OnInit {
     this.inventoryDataService.entities$.subscribe({
       next: (inventory) => {
         this.balanceUI = inventory;
-        console.log(this.balanceUI);
       },
     });
     this.filterProducts();
-    this.inventoryDataService.loaded$;
   }
 
   openProductModal(balance: BalanceUI) {
-    // console.log(balance);
     this.dialog.open(ProductModalComponent, {
       data: balance,
     });

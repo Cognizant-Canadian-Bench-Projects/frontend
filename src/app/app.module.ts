@@ -46,6 +46,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     SignupComponent,
     NavbarComponent,
     LocationNamePipe,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
