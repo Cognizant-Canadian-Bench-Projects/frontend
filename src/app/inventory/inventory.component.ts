@@ -35,7 +35,6 @@ export class InventoryComponent implements OnInit {
   productName: string = '';
   filteredProducts: BalanceUI[] = [];
 
-
   display = 'none';
   @ViewChild('error_message') error_message!: ElementRef;
   constructor(
@@ -47,13 +46,13 @@ export class InventoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.inventoryDataService.entities$.subscribe(
-      {next: inventory=>{
-        this.balanceUI=inventory;
-      }}
-    )
+    this.inventoryDataService.entities$.subscribe({
+      next: (inventory) => {
+        this.balanceUI = inventory;
+        console.log(this.balanceUI);
+      },
+    });
     this.filterProducts();
-
   }
 
   openProductModal(balance: BalanceUI) {

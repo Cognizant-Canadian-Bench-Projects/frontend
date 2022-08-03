@@ -30,6 +30,7 @@ import { timeout } from 'rxjs';
 import { ProductNamePipe } from './pipes/product-name.pipe';
 import { LocationNamePipe } from './pipes/location-name.pipe';
 import { InventoryResolver } from './inventory/inventory.resolver';
+import { InventoryModule } from './inventory/inventory.module';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: 'http://localhost:8080',
@@ -39,12 +40,10 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    InventoryComponent,
     ProductModalComponent,
     LoginComponent,
     SignupComponent,
     NavbarComponent,
-    ProductNamePipe,
     LocationNamePipe,
   ],
   imports: [
@@ -52,6 +51,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    InventoryModule,
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, {}),
@@ -69,8 +69,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     Store,
     { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
     LocationNamePipe,
-    ProductNamePipe,
-    InventoryResolver
+    InventoryResolver,
   ],
   bootstrap: [AppComponent],
 })

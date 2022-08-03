@@ -17,9 +17,7 @@ export class AppComponent implements OnInit {
   error!: string | null;
 
   constructor(
-    private inventoryDataService: InventioryDataService
-    // private store: Store<AppState>,
-    // private inventoryService: InventoryService,
+    private inventoryDataService: InventioryDataService // private store: Store<AppState>, // private inventoryService: InventoryService,
   ) {
     // this.inventoryService.getErrorMessage().subscribe({
     //   next: err=> this.error =err
@@ -27,7 +25,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.inventoryDataService.getAll();
+    // this.inventoryDataService.getAll();
     // this.store.dispatch(getInventory());
   }
 }
