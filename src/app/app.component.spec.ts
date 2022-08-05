@@ -6,6 +6,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { AppComponent } from './app.component';
 import { AppState } from './app.state';
+import { InventoryResolver } from './inventory/inventory.resolver';
 import { InventoryService } from './inventory/inventory.service';
 import { InventoryState } from './inventory/reducers';
 import { BalanceUI } from './models/balanceUI';
@@ -53,7 +54,7 @@ let locationQuantity: LocationQuantity = {
 
 let department: Department = {
   id: 1,
-  departmentName: 'clothing',
+  name: 'clothing',
 };
 
 let product: Product = {
@@ -95,6 +96,7 @@ describe('AppComponent', () => {
       providers: [
         provideMockStore({ initialState }),
         { provide: InventoryService, useClass: MockInventoryServices },
+        InventoryResolver
       ],
     }).compileComponents();
   });

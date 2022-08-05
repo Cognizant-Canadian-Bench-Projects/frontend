@@ -1,6 +1,13 @@
 <div id="product-modal">
+  <input
+    class="input-size"
+    type="text"
+    placeholder="Location Name"
+    [(ngModel)]="locationName"
+    (ngModelChange)="filterLocations()"
+  />
   <h2 id="product-name" *ngIf="product">{{ product.name }}</h2>
-  <div>
+  <ng-container *ngIf="filteredLocations.length > 0; else noLocations">
     <table class="table table-hover table-striped table-borderless">
       <thead>
         <tr class="table-primary">
@@ -10,14 +17,26 @@
           <th scope="col">Quantity</th>
         </tr>
       </thead>
-      <tbody  >
-        <tr *ngFor="let locationQuantity of locationList" >
-          <th  scope="row">{{ locationQuantity.location.id }}</th>
-          <td >{{ locationQuantity.location.name }}</td>
-          <td >{{ locationQuantity.location.zipcode }}</td>
-          <td >{{ locationQuantity.quantity }}</td>
+      <tbody>
+        <tr
+          *ngFor="
+            let locationQuantity of locationList | locationName: locationName
+          "
+        >
+          <th scope="row">{{ locationQuantity.location.id }}</th>
+          <td>{{ locationQuantity.location.name }}</td>
+          <td>{{ locationQuantity.location.zipcode }}</td>
+          <td>{{ locationQuantity.quantity }}</td>
         </tr>
       </tbody>
     </table>
-  </div>
+  </ng-container>
+  <ng-template #noLocations>
+    <tr style="color: black">
+      No location found
+    </tr>
+  </ng-template>
+  <!-- <div *ngIf="filteredLocations.length==0">
+    <p>LOCATION DOES NOT EXIST</p>
+  </div> -->
 </div>

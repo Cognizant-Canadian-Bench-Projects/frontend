@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from './app.state';
-import { InventoryService } from './inventory/inventory.service';
-import { tap } from 'rxjs/operators';
-import { noop, Observable } from 'rxjs';
-import { getInventory } from './inventory/inventory.actions';
+import {
+  Event,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
+import { InventioryDataService } from './inventory/inventiory-data.service';
 
 @Component({
   selector: 'app-root',
@@ -14,17 +17,31 @@ import { getInventory } from './inventory/inventory.actions';
 export class AppComponent implements OnInit {
   title = 'inventory system';
   error!: string | null;
+  loading = false;
 
   constructor(
-    private store: Store<AppState>,
-    private inventoryService: InventoryService,
-  ) {
-    this.inventoryService.getErrorMessage().subscribe({
-      next: err=> this.error =err
-    });
-  }
+    private inventoryDataService: InventioryDataService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.store.dispatch(getInventory());
+    this.router.events.subscribe((event: Event) => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.loading = true;
+          break;
+        }
+
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError: {
+          this.loading = false;
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
   }
 }

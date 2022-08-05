@@ -11,6 +11,8 @@ import { Location } from '../models/location';
 import { BalanceUI } from '../models/balanceUI';
 
 import { ProductModalComponent } from './product-modal.component';
+import { pipe } from 'rxjs';
+import { LocationNamePipe } from '../pipes/location-name.pipe';
 
 describe('ProductModalComponent', () => {
   let component: ProductModalComponent;
@@ -28,6 +30,7 @@ describe('ProductModalComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
+        LocationNamePipe
       ],
     }).compileComponents();
 
@@ -36,7 +39,7 @@ describe('ProductModalComponent', () => {
     fixture.detectChanges();
     department1 = {
       id: 1,
-      departmentName: 'clothing',
+     name: 'clothing',
     };
     product1 = {
       id: 1,

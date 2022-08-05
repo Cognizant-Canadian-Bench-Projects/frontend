@@ -4,17 +4,24 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { BalanceUI } from '../models/balanceUI';
 import { getInventory } from './inventory.actions';
 import { InventoryService } from './inventory.service';
 import { InventoryState } from './reducers';
-import { tap } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
 import { noop, Observable } from 'rxjs';
 import { AppState } from '../app.state';
 import { LocationQuantity } from '../models/locationQuantity';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
+import { InventioryDataService } from './inventiory-data.service';
+import {
+  getProductByName,
+  selectProductByName,
+  selectProductByNameAndLocation,
+} from './inventory.selectors';
+import { ProductNamePipe } from '../pipes/product-name.pipe';
 declare var window: any;
 @Component({
   selector: 'app-inventory',
@@ -22,82 +29,39 @@ declare var window: any;
   styleUrls: ['./inventory.component.css'],
 })
 export class InventoryComponent implements OnInit {
-  inventoryForm!: UntypedFormGroup;
-  balanceUI!: BalanceUI[];
+  balanceUI: BalanceUI[] = [];
   product: BalanceUI | undefined;
+  productName: string = '';
+  filteredProducts: BalanceUI[] = [];
 
   display = 'none';
   @ViewChild('error_message') error_message!: ElementRef;
   constructor(
-    private formBuilder: UntypedFormBuilder,
-    private inventoryService: InventoryService,
-    private dialog: MatDialog
+    private inventoryDataService: InventioryDataService,
+    private dialog: MatDialog,
+    private productPipe: ProductNamePipe
   ) {}
 
   ngOnInit(): void {
-    this.inventoryService
-      .selectInventory()
-      .subscribe((inventory) => (this.balanceUI = inventory));
-
-    this.inventoryForm = this.formBuilder.group({
-      productName: ['', Validators.required],
-      locationName: [''],
+    console.log(this.inventoryDataService.loaded$);
+    this.inventoryDataService.entities$.subscribe({
+      next: (inventory) => {
+        this.balanceUI = inventory;
+      },
     });
-  }
-
-  onSubmit() {
-    const formVals = this.inventoryForm.value;
-    if (formVals.locationName == '') {
-      this.inventoryService
-        .selectProductByName(formVals.productName)
-        .subscribe({
-          next: (result) => {
-            if (result.length == 0) {
-              this.error_message.nativeElement.innerHTML = `Product ${formVals.productName} is not in our inventory`;
-              this.error_message.nativeElement.className = 'alert alert-danger';
-            } else {
-              this.error_message.nativeElement.innerHTML = '';
-              this.error_message.nativeElement.className = '';
-              this.balanceUI = result;
-            }
-          },
-          error: (result) => {
-            this.error_message.nativeElement.innerHTML = result.error;
-            this.error_message.nativeElement.class = 'alert alert-danger';
-          },
-        });
-    } else {
-      this.inventoryService
-        .selectProductByNameAndLocation(
-          formVals.productName,
-          formVals.locationName
-        )
-        .subscribe({
-          next: ((result) => {
-            if (result.length == 0) {
-              this.error_message.nativeElement.innerHTML = `Product ${formVals.productName} is not in our inventory or Location ${formVals.locationName} is incorrect`;
-              this.error_message.nativeElement.className = 'alert alert-danger';
-            console.log("1");
-            } else {
-              this.error_message.nativeElement.innerHTML = '';
-              this.error_message.nativeElement.className = '';
-              this.balanceUI = result;
-              console.log("2");
-            }
-          }),
-          error: (result) => {
-            this.error_message.nativeElement.innerHTML = result.error;
-            this.error_message.nativeElement.class = 'alert alert-danger';
-            console.log("3");
-          },
-        });
-    }
+    this.filterProducts();
   }
 
   openProductModal(balance: BalanceUI) {
-    // console.log(balance);
     this.dialog.open(ProductModalComponent, {
       data: balance,
     });
+  }
+
+  filterProducts() {
+    this.filteredProducts = this.productPipe.transform(
+      this.balanceUI,
+      this.productName
+    );
   }
 }

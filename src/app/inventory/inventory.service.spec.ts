@@ -30,7 +30,7 @@ let locationQuantity: LocationQuantity = {
 
 let department: Department = {
   id: 1,
-  departmentName: 'clothing',
+  name: 'clothing',
 };
 
 let product: Product = {
