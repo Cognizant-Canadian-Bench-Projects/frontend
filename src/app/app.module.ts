@@ -45,7 +45,6 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     LoginComponent,
     SignupComponent,
     NavbarComponent,
-    LocationNamePipe,
     LoadingSpinnerComponent,
   ],
   imports: [
@@ -70,7 +69,6 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
   providers: [
     Store,
     { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
-    LocationNamePipe,
     InventoryResolver,
   ],
   bootstrap: [AppComponent],

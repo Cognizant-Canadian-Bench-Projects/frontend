@@ -22,6 +22,7 @@ import {
   selectProductByNameAndLocation,
 } from './inventory.selectors';
 import { ProductNamePipe } from '../pipes/product-name.pipe';
+import { LocationNamePipe } from '../pipes/location-name.pipe';
 declare var window: any;
 @Component({
   selector: 'app-inventory',
@@ -32,6 +33,7 @@ export class InventoryComponent implements OnInit {
   balanceUI: BalanceUI[] = [];
   product: BalanceUI | undefined;
   productName: string = '';
+  locationName: string = '';
   filteredProducts: BalanceUI[] = [];
 
   display = 'none';
@@ -39,7 +41,8 @@ export class InventoryComponent implements OnInit {
   constructor(
     private inventoryDataService: InventioryDataService,
     private dialog: MatDialog,
-    private productPipe: ProductNamePipe
+    private productPipe: ProductNamePipe,
+    private locationPipe: LocationNamePipe
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +53,7 @@ export class InventoryComponent implements OnInit {
       },
     });
     this.filterProducts();
+    this.filterByLocation();
   }
 
   openProductModal(balance: BalanceUI) {
@@ -62,6 +66,13 @@ export class InventoryComponent implements OnInit {
     this.filteredProducts = this.productPipe.transform(
       this.balanceUI,
       this.productName
+    );
+  }
+
+  filterByLocation() {
+    this.filteredProducts = this.locationPipe.transform(
+      this.balanceUI,
+      this.locationName
     );
   }
 }
