@@ -12,10 +12,10 @@ export class LocationNamePipe implements PipeTransform {
       return value;
     }
     return value.filter((balanceUI) =>
-      balanceUI.locationList.some(
-        (locationQuantity) =>
-          locationQuantity.location.name.toLowerCase() ==
-          locationName.toLowerCase()
+      balanceUI.locationList.some((locationQuantity) =>
+        locationQuantity.location.name
+          .toLowerCase()
+          .match(locationName.toLowerCase())
       )
     );
   }
