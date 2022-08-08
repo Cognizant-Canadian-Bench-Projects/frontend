@@ -10,6 +10,16 @@
           (ngModelChange)="filterProducts()"
         />
       </div>
+
+      <div>
+        <input
+          class="input-size"
+          type="text"
+          placeholder="Location Name"
+          [(ngModel)]="locationName"
+          (ngModelChange)="filterByLocation()"
+        />
+      </div>
     </div>
     <div class="col-2"></div>
   </div>
@@ -29,7 +39,11 @@
     </thead>
     <tbody>
       <tr
-        *ngFor="let balance of balanceUI | productName: productName"
+        *ngFor="
+          let balance of balanceUI
+            | productName: productName
+            | locationName: locationName
+        "
         (click)="openProductModal(balance)"
       >
         <th scope="row">{{ balance.product.id }}</th>

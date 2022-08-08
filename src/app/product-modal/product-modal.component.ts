@@ -23,17 +23,18 @@ export class ProductModalComponent implements OnInit {
   ) {
     this.product = data.product;
     this.locationList = data.locationList;
+    console.log(this.locationList);
     this.quantity = data.quantity;
   }
 
   ngOnInit(): void {
-    this.filterLocations();
+    //this.filterLocations();
   }
 
-  filterLocations() {
-    this.filteredLocations = this.locationPipe.transform(
-      this.locationList,
-      this.locationName
-    );
-  }
+  // filterLocations() {
+  //   this.filteredLocations = this.locationPipe.transform(
+  //     this.locationList,
+  //     this.locationName
+  //   );
+  // }
 }

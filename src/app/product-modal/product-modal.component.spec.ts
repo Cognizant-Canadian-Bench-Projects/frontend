@@ -30,7 +30,7 @@ describe('ProductModalComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
-        LocationNamePipe
+        LocationNamePipe,
       ],
     }).compileComponents();
 
@@ -39,7 +39,7 @@ describe('ProductModalComponent', () => {
     fixture.detectChanges();
     department1 = {
       id: 1,
-     name: 'clothing',
+      name: 'clothing',
     };
     product1 = {
       id: 1,
@@ -61,6 +61,7 @@ describe('ProductModalComponent', () => {
     locationList = [locationQuantity];
 
     balanceUI = {
+      id: 1,
       product: product1,
       locationList: locationList,
       quantity: locationList[0].quantity,

@@ -14,6 +14,7 @@ import {
 } from '@ngrx/data';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 import { compareBalanceUI } from '../models/balanceUI';
+import { LocationNamePipe } from '../pipes/location-name.pipe';
 const inventoryRoutes: Routes = [
   {
     path: '',
@@ -25,10 +26,15 @@ const entityMetadata: EntityMetadataMap = {
   BalanceUI: { entityName: 'Inventory', sortComparer: compareBalanceUI },
 };
 @NgModule({
-  declarations: [InventoryComponent, ProductNamePipe],
+  declarations: [InventoryComponent, ProductNamePipe, LocationNamePipe],
   imports: [CommonModule, FormsModule, RouterModule.forChild(inventoryRoutes)],
   exports: [InventoryComponent],
-  providers: [ProductNamePipe, InventioryDataService, InventoryResolver],
+  providers: [
+    ProductNamePipe,
+    LocationNamePipe,
+    InventioryDataService,
+    InventoryResolver,
+  ],
 })
 export class InventoryModule {
   constructor(
