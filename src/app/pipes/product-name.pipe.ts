@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { BalanceUI } from '../models/balanceUI';
-import { inventorySelectors } from '../inventory/inventory.selectors';
 
 @Pipe({
   name: 'productName',

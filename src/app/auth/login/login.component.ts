@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.state';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +8,7 @@ import { AppState } from 'src/app/app.state';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit { loginForm!: FormGroup;
-  constructor(private store: Store<AppState>) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({

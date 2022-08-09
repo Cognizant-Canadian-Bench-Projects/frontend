@@ -13,10 +13,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { reducers } from './app.state';
 import { ProductModalComponent } from './product-modal/product-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InventoryEffect } from './inventory/inventory.effects';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -32,6 +30,7 @@ import { LocationNamePipe } from './pipes/location-name.pipe';
 import { InventoryResolver } from './inventory/inventory.resolver';
 import { InventoryModule } from './inventory/inventory.module';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { GeonameComponent } from './geoname/geoname.component';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: 'http://localhost:8080',
@@ -46,6 +45,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     SignupComponent,
     NavbarComponent,
     LoadingSpinnerComponent,
+    GeonameComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,12 +55,12 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     InventoryModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot(reducers, {}),
+    StoreModule.forRoot( {}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([InventoryEffect]),
+    EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     MatDialogModule,
     BrowserAnimationsModule,

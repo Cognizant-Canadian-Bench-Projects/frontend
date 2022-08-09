@@ -6,21 +6,13 @@ import {
 } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { BalanceUI } from '../models/balanceUI';
-import { getInventory } from './inventory.actions';
-import { InventoryService } from './inventory.service';
-import { InventoryState } from './reducers';
 import { first, tap } from 'rxjs/operators';
 import { noop, Observable } from 'rxjs';
-import { AppState } from '../app.state';
 import { LocationQuantity } from '../models/locationQuantity';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
 import { InventioryDataService } from './inventiory-data.service';
-import {
-  getProductByName,
-  selectProductByName,
-  selectProductByNameAndLocation,
-} from './inventory.selectors';
+
 import { ProductNamePipe } from '../pipes/product-name.pipe';
 import { LocationNamePipe } from '../pipes/location-name.pipe';
 declare var window: any;

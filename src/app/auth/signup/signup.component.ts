@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.state';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +8,7 @@ import { AppState } from 'src/app/app.state';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit { signupForm!: FormGroup;
-  constructor(private store: Store<AppState>) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({

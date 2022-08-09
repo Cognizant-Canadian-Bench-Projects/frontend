@@ -4,7 +4,6 @@ import { InventoryComponent } from './inventory.component';
 import { FormsModule } from '@angular/forms';
 import { ProductNamePipe } from '../pipes/product-name.pipe';
 import { Route, RouterModule, Routes } from '@angular/router';
-import { InventoryService } from './inventory.service';
 import { InventioryDataService } from './inventiory-data.service';
 import { InventoryResolver } from './inventory.resolver';
 import {
