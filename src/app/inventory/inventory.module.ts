@@ -14,6 +14,7 @@ import {
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 import { compareBalanceUI } from '../models/balanceUI';
 import { LocationNamePipe } from '../pipes/location-name.pipe';
+import { GeonameComponent } from '../geoname/geoname.component';
 const inventoryRoutes: Routes = [
   {
     path: '',
@@ -25,7 +26,7 @@ const entityMetadata: EntityMetadataMap = {
   BalanceUI: { entityName: 'Inventory', sortComparer: compareBalanceUI },
 };
 @NgModule({
-  declarations: [InventoryComponent, ProductNamePipe, LocationNamePipe],
+  declarations: [InventoryComponent, ProductNamePipe, LocationNamePipe,GeonameComponent],
   imports: [CommonModule, FormsModule, RouterModule.forChild(inventoryRoutes)],
   exports: [InventoryComponent],
   providers: [

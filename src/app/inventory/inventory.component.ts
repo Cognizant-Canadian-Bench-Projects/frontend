@@ -27,6 +27,7 @@ export class InventoryComponent implements OnInit {
   productName: string = '';
   locationName: string = '';
   filteredProducts: BalanceUI[] = [];
+  zipcode: string="";
 
   display = 'none';
   @ViewChild('error_message') error_message!: ElementRef;
@@ -40,7 +41,7 @@ export class InventoryComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.inventoryDataService.loaded$);
     this.inventoryDataService.entities$.subscribe({
-      next: (inventory) => {
+      next: (inventory: any) => {
         this.balanceUI = inventory;
       },
     });
@@ -50,7 +51,7 @@ export class InventoryComponent implements OnInit {
 
   openProductModal(balance: BalanceUI) {
     this.dialog.open(ProductModalComponent, {
-      data: balance,
+      data: { balance, zipcode:this.zipcode },
     });
   }
 
@@ -66,5 +67,8 @@ export class InventoryComponent implements OnInit {
       this.balanceUI,
       this.locationName
     );
+  }
+  updateZipcode(zipcode: string) {
+    this.zipcode = zipcode;
   }
 }

@@ -16,25 +16,18 @@ export class ProductModalComponent implements OnInit {
   quantity = 0;
   locationName: string = '';
   filteredLocations: LocationQuantity[] = [];
+  zipcode!:boolean;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: BalanceUI,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private locationPipe: LocationNamePipe
   ) {
-    this.product = data.product;
-    this.locationList = data.locationList;
-    console.log(this.locationList);
-    this.quantity = data.quantity;
+    this.product = data.balance.product;
+    this.locationList = data.balance.locationList;
+    this.quantity = data.balance.quantity;
+    this.zipcode = data.zipcode==""?false:true;
   }
 
   ngOnInit(): void {
-    //this.filterLocations();
   }
-
-  // filterLocations() {
-  //   this.filteredLocations = this.locationPipe.transform(
-  //     this.locationList,
-  //     this.locationName
-  //   );
-  // }
 }

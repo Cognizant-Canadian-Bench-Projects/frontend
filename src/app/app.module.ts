@@ -30,7 +30,6 @@ import { LocationNamePipe } from './pipes/location-name.pipe';
 import { InventoryResolver } from './inventory/inventory.resolver';
 import { InventoryModule } from './inventory/inventory.module';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
-import { GeonameComponent } from './geoname/geoname.component';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: 'http://localhost:8080',
@@ -45,7 +44,6 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     SignupComponent,
     NavbarComponent,
     LoadingSpinnerComponent,
-    GeonameComponent,
   ],
   imports: [
     BrowserModule,

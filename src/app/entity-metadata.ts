@@ -3,6 +3,7 @@ import { compareBalanceUI } from './models/balanceUI';
 
 const entityMetadata: EntityMetadataMap = {
   BalanceUI: { entityName: 'Inventory' },
+  Location:{}
 };
 
 const pluralNames = { Inventory: 'Inventory' };
