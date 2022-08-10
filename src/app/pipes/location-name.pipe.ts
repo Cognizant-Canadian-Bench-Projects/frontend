@@ -15,7 +15,7 @@ export class LocationNamePipe implements PipeTransform {
       balanceUI.locationList.some((locationQuantity) =>
         locationQuantity.location.name
           .toLowerCase()
-          .match(locationName.toLowerCase())
+          .match(`^${locationName.toLowerCase()}`)
       )
     );
   }

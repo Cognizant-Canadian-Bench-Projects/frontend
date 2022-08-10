@@ -7,16 +7,16 @@ import { BalanceUI } from '../models/balanceUI';
 export class ProductNamePipe implements PipeTransform {
   transform(
     value: BalanceUI[],
-    productName: string,
+    productName: string
     // locationName: string
   ): BalanceUI[] {
     if (productName == '') {
       return value;
     }
-    return value
-      .filter((balanceUI) =>
-        balanceUI.product.name.toLowerCase().match(productName.toLowerCase())
-      )
-
+    return value.filter((balanceUI) =>
+      balanceUI.product.name
+        .toLowerCase()
+        .match(`^${productName.toLowerCase()}`)
+    );
   }
 }
