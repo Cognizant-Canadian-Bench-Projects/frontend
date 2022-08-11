@@ -1,4 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { tap } from 'rxjs';
 import { GeonameDataService } from './geoname-data.service';
 import { GeonameService } from './geoname.service';
@@ -18,6 +24,11 @@ export class GeonameComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.locationForm = new FormGroup({
+      zipcode: new FormControl('', [Validators.required]),
+      country: new FormControl('', [Validators.required]),
+      radius: new FormControl(''),
+    });
     this.geonameDataService.getAll();
   }
 
@@ -27,7 +38,7 @@ export class GeonameComponent implements OnInit {
       .subscribe((data) => {
         this.newZipcodeEvent.emit(this.zipcode);
         console.log(data);
-        //this.updateDistances();
+        this.updateDistances();
       });
   }
 
@@ -37,8 +48,8 @@ export class GeonameComponent implements OnInit {
         locations.forEach((location) => {
           let i = 1;
           i++;
-      location.distance= 100 + i;
-
+          location.distance = 100 + i;
+        });
       })
     );
   }

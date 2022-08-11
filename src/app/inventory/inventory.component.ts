@@ -15,6 +15,7 @@ import { InventoryDataService } from './inventory-data.service';
 
 import { ProductNamePipe } from '../pipes/product-name.pipe';
 import { LocationNamePipe } from '../pipes/location-name.pipe';
+import { Location } from '../models/location';
 declare var window: any;
 @Component({
   selector: 'app-inventory',
@@ -68,8 +69,11 @@ export class InventoryComponent implements OnInit {
       this.locationName
     );
   }
-  updateZipcode(zipcode: string) {
-    this.zipcode = zipcode;
+  updateZipcode(nearByLocations: Location[]) {
+    this.balanceUI.filter((balance) => {
+      balance.locationList.find;
+    });
+    this.inventoryDataService.updateManyInCache(nearByLocations);
   }
 
   updateDistances() {}

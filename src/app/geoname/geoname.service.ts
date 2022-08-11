@@ -9,7 +9,12 @@ import { Location } from '../models/location';
 export class GeonameService {
   constructor(private httpClient: HttpClient) {}
 
+  constructor(private httpClient: HttpClient) {}
+
   getZipcodesFromGeoName(zipcode: string): Observable<any> {
-    return this.httpClient.get(`http://http://localhost:8080/`);
+    console.log(zipcode);
+    return this.httpClient.get(
+      `http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=${zipcode}&country=CA&radius=10&username=deepakAgarwal`
+    );
   }
 }
