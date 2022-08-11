@@ -15,6 +15,7 @@ import { InventioryDataService } from './inventiory-data.service';
 
 import { ProductNamePipe } from '../pipes/product-name.pipe';
 import { LocationNamePipe } from '../pipes/location-name.pipe';
+import { Location } from '../models/location';
 declare var window: any;
 @Component({
   selector: 'app-inventory',
@@ -27,7 +28,6 @@ export class InventoryComponent implements OnInit {
   productName: string = '';
   locationName: string = '';
   filteredProducts: BalanceUI[] = [];
-  zipcode: string="";
 
   display = 'none';
   @ViewChild('error_message') error_message!: ElementRef;
@@ -68,7 +68,10 @@ export class InventoryComponent implements OnInit {
       this.locationName
     );
   }
-  updateZipcode(zipcode: string) {
-    this.zipcode = zipcode;
+  updateZipcode(nearByLocations: Location[]) {
+    this.balanceUI.filter(balance=>{
+     balance.locationList.find
+    })
+  this.inventoryDataService.updateManyInCache(nearByLocations)
   }
 }

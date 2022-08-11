@@ -1,13 +1,23 @@
 <p>geoname works!</p>
 <div>
-  <form (ngSubmit)="onSearchZipcode()">
+  <form (ngSubmit)="onSearchZipcode()" [formGroup]="locationForm" >
   <input
     class="input-size"
     type="text"
     placeholder="Zipcode/Postal Code"
-    [(ngModel)]='zipcode'
-    [ngModelOptions]="{standalone: true}"
   />
+
+  <input
+  class="input-size"
+  type="text"
+  placeholder="Country"
+/>
+
+<input
+class="input-size"
+type="number"
+placeholder="radius"
+/>
   <button type="submit"> Find Nearby Locations</button>
 </form>
 </div>
