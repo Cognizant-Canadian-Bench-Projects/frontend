@@ -11,7 +11,7 @@ import { noop, Observable } from 'rxjs';
 import { LocationQuantity } from '../models/locationQuantity';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
-import { InventioryDataService } from './inventiory-data.service';
+import { InventoryDataService } from './inventory-data.service';
 
 import { ProductNamePipe } from '../pipes/product-name.pipe';
 import { LocationNamePipe } from '../pipes/location-name.pipe';
@@ -27,12 +27,12 @@ export class InventoryComponent implements OnInit {
   productName: string = '';
   locationName: string = '';
   filteredProducts: BalanceUI[] = [];
-  zipcode: string="";
+  zipcode: string = '';
 
   display = 'none';
   @ViewChild('error_message') error_message!: ElementRef;
   constructor(
-    private inventoryDataService: InventioryDataService,
+    private inventoryDataService: InventoryDataService,
     private dialog: MatDialog,
     private productPipe: ProductNamePipe,
     private locationPipe: LocationNamePipe
@@ -51,7 +51,7 @@ export class InventoryComponent implements OnInit {
 
   openProductModal(balance: BalanceUI) {
     this.dialog.open(ProductModalComponent, {
-      data: { balance, zipcode:this.zipcode },
+      data: { balance, zipcode: this.zipcode },
     });
   }
 
@@ -71,4 +71,6 @@ export class InventoryComponent implements OnInit {
   updateZipcode(zipcode: string) {
     this.zipcode = zipcode;
   }
+
+  updateDistances() {}
 }

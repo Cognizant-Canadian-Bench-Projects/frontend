@@ -4,15 +4,16 @@ import { InventoryComponent } from './inventory.component';
 import { FormsModule } from '@angular/forms';
 import { ProductNamePipe } from '../pipes/product-name.pipe';
 import { Route, RouterModule, Routes } from '@angular/router';
-import { InventioryDataService } from './inventiory-data.service';
+import { InventoryDataService } from './inventory-data.service';
 import { InventoryResolver } from './inventory.resolver';
 import {
+  EntityDataModuleConfig,
   EntityDataService,
   EntityDefinitionService,
   EntityMetadataMap,
 } from '@ngrx/data';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
-import { compareBalanceUI } from '../models/balanceUI';
+import { compareBalanceUI, compareBalanceUIByName } from '../models/balanceUI';
 import { LocationNamePipe } from '../pipes/location-name.pipe';
 import { GeonameComponent } from '../geoname/geoname.component';
 const inventoryRoutes: Routes = [
@@ -23,16 +24,22 @@ const inventoryRoutes: Routes = [
   },
 ];
 const entityMetadata: EntityMetadataMap = {
-  BalanceUI: { entityName: 'Inventory', sortComparer: compareBalanceUI },
+  BalanceUI: { entityName: 'Inventory', sortComparer: compareBalanceUIByName },
+  Location: {},
 };
 @NgModule({
-  declarations: [InventoryComponent, ProductNamePipe, LocationNamePipe,GeonameComponent],
+  declarations: [
+    InventoryComponent,
+    ProductNamePipe,
+    LocationNamePipe,
+    GeonameComponent,
+  ],
   imports: [CommonModule, FormsModule, RouterModule.forChild(inventoryRoutes)],
   exports: [InventoryComponent],
   providers: [
     ProductNamePipe,
     LocationNamePipe,
-    InventioryDataService,
+    InventoryDataService,
     InventoryResolver,
   ],
 })
@@ -43,6 +50,7 @@ export class InventoryModule {
     //InventioryDataService: InventioryDataService
   ) {
     eds.registerMetadataMap(entityMetadata);
+    // Entity Data Service registers service so that defaults are not used by NgRx Data
     //entityDataService.registerService('Inventory', InventioryDataService);
   }
 }

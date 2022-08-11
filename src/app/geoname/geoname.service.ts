@@ -4,15 +4,12 @@ import { Observable } from 'rxjs';
 import { Location } from '../models/location';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class GeonameService {
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private httpClient:HttpClient) {}
-
-   getZipcodesFromGeoName(zipcode:string):Observable<any>{
-    console.log(zipcode);
-    return this.httpClient.get(`http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=${zipcode}&country=CA&radius=10&username=deepakAgarwal`)
-   }
+  getZipcodesFromGeoName(zipcode: string): Observable<any> {
+    return this.httpClient.get(`http://http://localhost:8080/`);
+  }
 }
