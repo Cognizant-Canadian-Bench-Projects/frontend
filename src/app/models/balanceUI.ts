@@ -17,3 +17,12 @@ export function compareBalanceUI(b1: BalanceUI, b2: BalanceUI) {
     return -1;
   } else return 0;
 }
+
+export function compareBalanceUIByName(b1: BalanceUI, b2: BalanceUI) {
+  const compare = b1.product.name < b2.product.name;
+
+  if (!compare) {
+    return 1;
+  }
+  return 0;
+}

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InventoryComponent } from './inventory.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductNamePipe } from '../pipes/product-name.pipe';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { InventoryDataService } from './inventory-data.service';
@@ -34,7 +34,12 @@ const entityMetadata: EntityMetadataMap = {
     LocationNamePipe,
     GeonameComponent,
   ],
-  imports: [CommonModule, FormsModule, RouterModule.forChild(inventoryRoutes)],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(inventoryRoutes),
+  ],
   exports: [InventoryComponent],
   providers: [
     ProductNamePipe,

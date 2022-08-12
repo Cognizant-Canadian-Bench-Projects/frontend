@@ -53,7 +53,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     InventoryModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot( {}),
+    StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

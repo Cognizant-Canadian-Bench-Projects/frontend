@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+
 import {
   FormBuilder,
   FormControl,
@@ -6,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { tap } from 'rxjs';
+import { BalanceUI } from '../models/balanceUI';
 import { GeonameDataService } from './geoname-data.service';
 import { GeonameService } from './geoname.service';
 
@@ -15,8 +17,8 @@ import { GeonameService } from './geoname.service';
   styleUrls: ['./geoname.component.css'],
 })
 export class GeonameComponent implements OnInit {
-  zipcode!: string;
-  @Output() newZipcodeEvent = new EventEmitter<string>();
+  locationForm!: FormGroup;
+  @Output() newZipcodeEvent = new EventEmitter<BalanceUI[]>();
 
   constructor(
     private geonameDataService: GeonameDataService,
@@ -32,25 +34,16 @@ export class GeonameComponent implements OnInit {
     this.geonameDataService.getAll();
   }
 
-  onSearchZipcode() {
+  onSearchNearByLoction() {
+    const formValues = this.locationForm.value;
     this.geonameService
-      .getZipcodesFromGeoName(this.zipcode)
+      .getNearByLocationFromZipcode(
+        formValues.zipcode,
+        formValues.country,
+        formValues.radius
+      )
       .subscribe((data) => {
-        this.newZipcodeEvent.emit(this.zipcode);
-        console.log(data);
-        this.updateDistances();
+        this.newZipcodeEvent.emit(data);
       });
-  }
-
-  updateDistances() {
-    this.geonameDataService.entities$.pipe(
-      tap((locations) => {
-        locations.forEach((location) => {
-          let i = 1;
-          i++;
-          location.distance = 100 + i;
-        });
-      })
-    );
   }
 }
