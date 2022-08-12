@@ -36,6 +36,7 @@ export class GeonameComponent implements OnInit {
 
   onSearchNearByLoction() {
     const formValues = this.locationForm.value;
+    console.log(formValues);
     this.geonameService
       .getNearByLocationFromZipcode(
         formValues.zipcode,

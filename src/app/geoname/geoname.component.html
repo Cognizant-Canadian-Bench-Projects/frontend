@@ -1,22 +1,25 @@
 <div>
-  <form (ngSubmit)="onSearchNearByLoction()" [formGroup]="locationForm" >
-  <input
-    class="input-size"
-    type="text"
-    placeholder="Zipcode/Postal Code"
-  />
+  <form (ngSubmit)="onSearchNearByLoction()" [formGroup]="locationForm">
+    <input
+      class="input-size"
+      type="text"
+      placeholder="Zipcode/Postal Code"
+      formControlName="zipcode"
+    />
 
-  <input
-  class="input-size"
-  type="text"
-  placeholder="Country"
-/>
+    <input
+      class="input-size"
+      type="text"
+      placeholder="Country"
+      formControlName="country"
+    />
 
-<input
-class="input-size"
-type="number"
-placeholder="radius"
-/>
-  <button type="submit"> Find Nearby Locations</button>
-</form>
+    <input
+      class="input-size"
+      type="number"
+      placeholder="radius"
+      formControlName="radius"
+    />
+    <button type="submit">Find Nearby Locations</button>
+  </form>
 </div>

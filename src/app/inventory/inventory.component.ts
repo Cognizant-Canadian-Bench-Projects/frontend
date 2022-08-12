@@ -71,8 +71,5 @@ export class InventoryComponent implements OnInit {
   }
   updateZipcode(nearByLocations: BalanceUI[]) {
     this.inventoryDataService.updateManyInCache(nearByLocations);
-    console.log(this.balanceUI);
   }
-
-  updateDistances() {}
 }

@@ -24,7 +24,7 @@ const inventoryRoutes: Routes = [
   },
 ];
 const entityMetadata: EntityMetadataMap = {
-  BalanceUI: { entityName: 'Inventory', sortComparer: compareBalanceUIByName },
+  BalanceUI: { entityName: 'Inventory', sortComparer: compareBalanceUI },
   Location: {},
 };
 @NgModule({
