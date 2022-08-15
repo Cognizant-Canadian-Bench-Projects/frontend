@@ -12,12 +12,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let locationQuantity of locationList">
+        <tr
+          *ngFor="
+            let locationQuantity of locationList | locationByDistance: zipcode
+          "
+        >
           <th scope="row">{{ locationQuantity.location.id }}</th>
           <td>{{ locationQuantity.location.name }}</td>
           <td>{{ locationQuantity.location.zipcode }}</td>
           <td>{{ locationQuantity.quantity }}</td>
-          <td>{{locationQuantity.location.distance}}<td>
+          <td *ngIf="zipcode">{{ locationQuantity.location.distance }}</td>
         </tr>
       </tbody>
     </table>

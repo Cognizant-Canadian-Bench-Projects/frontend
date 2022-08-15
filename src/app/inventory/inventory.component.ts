@@ -40,7 +40,6 @@ export class InventoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.inventoryDataService.loaded$);
     this.inventoryDataService.entities$.subscribe({
       next: (inventory: any) => {
         this.balanceUI = inventory;
@@ -69,7 +68,7 @@ export class InventoryComponent implements OnInit {
       this.locationName
     );
   }
-  updateZipcode(nearByLocations: BalanceUI[]) {
-    this.inventoryDataService.updateManyInCache(nearByLocations);
+  updateZipcode(zipcode: string) {
+    this.zipcode = zipcode;
   }
 }

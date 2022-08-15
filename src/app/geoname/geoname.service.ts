@@ -14,7 +14,6 @@ export class GeonameService {
     country: string,
     radius: number
   ): Observable<any> {
-    console.log(zipcode);
     return this.httpClient.get(
       `http://localhost:8080/geoname?zipcode=${zipcode}&country=${country}&radius=${radius}`
     );

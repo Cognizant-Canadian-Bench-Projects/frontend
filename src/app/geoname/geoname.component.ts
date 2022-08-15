@@ -18,7 +18,7 @@ import { GeonameService } from './geoname.service';
 })
 export class GeonameComponent implements OnInit {
   locationForm!: FormGroup;
-  @Output() newZipcodeEvent = new EventEmitter<BalanceUI[]>();
+  @Output() newZipcodeEvent = new EventEmitter<string>();
 
   constructor(
     private geonameDataService: GeonameDataService,
@@ -36,7 +36,6 @@ export class GeonameComponent implements OnInit {
 
   onSearchNearByLoction() {
     const formValues = this.locationForm.value;
-    console.log(formValues);
     this.geonameService
       .getNearByLocationFromZipcode(
         formValues.zipcode,
@@ -44,7 +43,8 @@ export class GeonameComponent implements OnInit {
         formValues.radius
       )
       .subscribe((data) => {
-        this.newZipcodeEvent.emit(data);
+        this.newZipcodeEvent.emit(formValues.zipcode);
+        this.geonameDataService.updateManyInCache(data);
       });
   }
 }
