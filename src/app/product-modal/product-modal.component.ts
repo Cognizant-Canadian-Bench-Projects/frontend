@@ -3,6 +3,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BalanceUI } from '../models/balanceUI';
 import { Product } from '../models/product';
 import { LocationQuantity } from '../models/locationQuantity';
+
+import { Location } from '../models/location';
 import { LocationNamePipe } from '../pipes/location-name.pipe';
 import { GeonameDataService } from '../geoname/geoname-data.service';
 import { InventioryDataService } from '../inventory/inventiory-data.service';
@@ -48,24 +50,34 @@ export class ProductModalComponent implements OnInit {
               location.zipcode == locationQuantity.location.zipcode
           );
           if (updateLocationQuantity) {
-            let locationQuantity: LocationQuantity = {
-              location,
-              quantity: updateLocationQuantity.quantity,
-            };
+            let locationQuantity = this.createLocationQuantity(location, updateLocationQuantity.quantity);
             updatedDistancesForLocations[lQindex] = locationQuantity;
             lQindex++;
           }
         });
-        let balance: BalanceUI = {
-          id: this.data.balance.id,
-          product: this.data.balance.product,
-          locationList: updatedDistancesForLocations,
-          quantity: this.data.balance.quantity,
-        };
+        let balance = this.createBalanceUI(this.data.balance.id, this.data.balance.product,  updatedDistancesForLocations, this.data.balance.quantity);
         this.inventoryDataService.updateOneInCache(balance);
         this.locationList = updatedDistancesForLocations;
       },
       error: (err) => console.log(err),
     });
+  }
+
+  createLocationQuantity(location: Location, quantity: number): LocationQuantity{
+    let locationQuantity : LocationQuantity = {
+      location,
+      quantity
+    }
+    return locationQuantity
+  }
+
+  createBalanceUI(id: number,product: Product,locationList: LocationQuantity[], quantity: number): BalanceUI {
+    let balanceUI: BalanceUI = {
+      id,
+      product,
+      locationList,
+      quantity
+    }
+    return balanceUI;
   }
 }
